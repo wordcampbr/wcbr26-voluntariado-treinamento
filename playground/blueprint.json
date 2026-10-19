@@ -50,6 +50,11 @@
 		},
 		{
 			"step": "writeFile",
+			"path": "/wordpress/wp-content/mu-plugins/wcbr-sem-barra-admin.php",
+			"data": "<?php\n/**\n * Plugin Name: WCBR 2026 — Sem barra de administração\n * Description: Esconde a barra de administração no site do curso (no Playground o visitante entra como admin).\n */\nadd_filter( 'show_admin_bar', '__return_false' );\n"
+		},
+		{
+			"step": "writeFile",
 			"path": "/wordpress/wp-content/mu-plugins/wcbr-nome-certificado.php",
 			"data": {
 				"resource": "url",
