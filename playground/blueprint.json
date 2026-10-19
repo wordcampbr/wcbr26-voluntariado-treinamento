@@ -1,0 +1,184 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"meta": {
+		"title": "Treinamento de Voluntários — WordCamp Brasil 2026",
+		"author": "WordCamp Brasil 2026"
+	},
+	"landingPage": "/",
+	"preferredVersions": {
+		"php": "8.3",
+		"wp": "latest"
+	},
+	"features": {
+		"networking": true
+	},
+	"login": true,
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "sensei-lms"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "sensei-certificates"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "setSiteLanguage",
+			"language": "pt_BR"
+		},
+		{
+			"step": "setSiteOptions",
+			"options": {
+				"blogname": "Treinamento de Voluntários — WordCamp Brasil 2026",
+				"blogdescription": "Curso para a equipe de voluntários do WCBR 2026",
+				"timezone_string": "America/Sao_Paulo",
+				"date_format": "j \\d\\e F \\d\\e Y",
+				"permalink_structure": "/%postname%/"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/mu-plugins/wcbr-nome-certificado.php",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/mu-plugins/wcbr-nome-certificado.php"
+			}
+		},
+		{
+			"step": "mkdir",
+			"path": "/wordpress/wcbr"
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wcbr/modulos.json",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/playground/modulos.json"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wcbr/import-curso.php",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/import-curso.php"
+			}
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp eval-file /wordpress/wcbr/import-curso.php"
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp post delete 1 2 --force"
+		},
+		{
+			"step": "mkdir",
+			"path": "/wordpress/wp-content/uploads/wcbr/fonts"
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/uploads/wcbr/capa.webp",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/identidade/uploads-wcbr/capa.webp"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/uploads/wcbr/icon.png",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/identidade/uploads-wcbr/icon.png"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/uploads/wcbr/logo.avif",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/identidade/uploads-wcbr/logo.avif"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/uploads/wcbr/fonts/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew7Y3tcoqK5.woff2",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/identidade/uploads-wcbr/fonts/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew7Y3tcoqK5.woff2"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/uploads/wcbr/fonts/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w7Y3tcoqK5.woff2",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/identidade/uploads-wcbr/fonts/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w7Y3tcoqK5.woff2"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/uploads/wcbr/fonts/pxiByp8kv8JHgFVrLBT5V15vFP-KUEg.woff2",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/identidade/uploads-wcbr/fonts/pxiByp8kv8JHgFVrLBT5V15vFP-KUEg.woff2"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/uploads/wcbr/fonts/pxiByp8kv8JHgFVrLCz7V15vFP-KUEg.woff2",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/identidade/uploads-wcbr/fonts/pxiByp8kv8JHgFVrLCz7V15vFP-KUEg.woff2"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/uploads/wcbr/fonts/pxiByp8kv8JHgFVrLEj6V15vFP-KUEg.woff2",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/identidade/uploads-wcbr/fonts/pxiByp8kv8JHgFVrLEj6V15vFP-KUEg.woff2"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/uploads/wcbr/fonts/pxiEyp8kv8JHgFVrFJXUc1NECPY.woff2",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/identidade/uploads-wcbr/fonts/pxiEyp8kv8JHgFVrFJXUc1NECPY.woff2"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wcbr/identidade.json",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/identidade/identidade.json"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wcbr/aplicar-identidade.php",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/identidade/aplicar-identidade.php"
+			}
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp eval-file /wordpress/wcbr/aplicar-identidade.php"
+		}
+	]
+}
