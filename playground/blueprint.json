@@ -62,6 +62,14 @@
 			}
 		},
 		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/mu-plugins/wcbr-certificado-ptbr.php",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/wordcampbr/wcbr26-voluntariado-treinamento/main/sensei/mu-plugins/wcbr-certificado-ptbr.php"
+			}
+		},
+		{
 			"step": "mkdir",
 			"path": "/wordpress/wcbr"
 		},

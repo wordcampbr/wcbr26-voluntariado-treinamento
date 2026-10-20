@@ -161,7 +161,11 @@ foreach ( $ids as $n => $lesson_id ) {
 	WP_CLI::log( sprintf( 'Lição %d (ID %d): %d perguntas, quiz %s', $n, $lesson_id, count( $qdata['questions'] ), $qdata['id'] ?? '?' ) );
 }
 
-// Certificado de conclusão.
+// Certificado de conclusão. O sensei-certificates cria o modelo por cron, que não roda no
+// blueprint do Playground; sem modelo, o curso não gera certificado nem mostra o botão.
+if ( ! get_posts( array( 'post_type' => 'certificate_template', 'post_status' => 'any', 'numberposts' => 1 ) ) && class_exists( 'WooThemes_Sensei_Certificates' ) ) {
+	WooThemes_Sensei_Certificates::instance()->install();
+}
 $template = get_posts( array( 'post_type' => 'certificate_template', 'post_status' => 'any', 'numberposts' => 1 ) );
 if ( $template ) {
 	$tid    = $template[0]->ID;
@@ -189,6 +193,20 @@ foreach ( array( 'courses-overview' => array( 'Cursos', 'cursos' ), 'my-courses'
 	if ( $page ) {
 		wp_update_post( array( 'ID' => $page->ID, 'post_title' => $pt[0], 'post_name' => $pt[1] ) );
 	}
+}
+// A página "Curso concluído" é criada na ativação do Sensei, antes do idioma: texto em inglês.
+$completed = get_page_by_path( 'curso-concluido' );
+if ( $completed ) {
+	wp_update_post(
+		array(
+			'ID'           => $completed->ID,
+			'post_content' => '<!-- wp:paragraph {"align":"center","fontSize":"large"} --><p class="has-text-align-center has-large-font-size">Parabéns, você concluiu o treinamento! 🥳</p><!-- /wp:paragraph -->'
+				. '<!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center">Baixe o seu certificado em PDF e envie para a coordenação do voluntariado como comprovante.</p><!-- /wp:paragraph -->'
+				. '<!-- wp:buttons {"contentJustification":"center","anchor":"course-completed-actions"} --><div class="wp-block-buttons is-content-justification-center" id="course-completed-actions">'
+				. '<!-- wp:button {"className":"view-certificate"} --><div class="wp-block-button view-certificate"><a class="wp-block-button__link">Baixar o certificado (PDF)</a></div><!-- /wp:button -->'
+				. '</div><!-- /wp:buttons --><!-- wp:sensei-lms/course-results /-->',
+		)
+	);
 }
 update_option( 'sensei_suggest_setup_wizard', 0 );
 flush_rewrite_rules();
